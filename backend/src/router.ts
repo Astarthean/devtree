@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import { createAccount, login } from "./handlers/idex";
+import { createAccount, getUser, login, updateProfile } from "./handlers/idex";
 import { handleInputErrors } from "./middleware/validation";
+import { authenticate } from "./middleware/auth";
 
 const router = Router();
 
@@ -34,5 +35,17 @@ router.post('/auth/login',
         .withMessage('La contraseña es requerida'),
     handleInputErrors,
     login)
+
+router.get('/user', authenticate, getUser)
+router.patch('/user', 
+    body('handle')
+        .notEmpty()
+        .withMessage('El nombre de usuario es requerido'),
+    body('description')
+        .notEmpty()
+        .withMessage('La descripción es requerida'),
+    handleInputErrors,
+    authenticate, 
+    updateProfile)
 
 export default router;
