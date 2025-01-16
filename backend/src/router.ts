@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import { createAccount, getUser, login, updateProfile } from "./handlers/idex";
+import { createAccount, getUser, login, updateProfile, uploadImage } from "./handlers/idex";
 import { handleInputErrors } from "./middleware/validation";
 import { authenticate } from "./middleware/auth";
 
@@ -23,7 +23,8 @@ router.post('/auth/register',
         .isLength({ min: 6 })
         .withMessage('La contraseña es requerida y debe tener al menos 6 caracteres'),
     handleInputErrors,
-    createAccount)
+    createAccount
+)
 
 router.post('/auth/login',
     body('email')
@@ -34,10 +35,11 @@ router.post('/auth/login',
         .notEmpty()
         .withMessage('La contraseña es requerida'),
     handleInputErrors,
-    login)
+    login
+)
 
 router.get('/user', authenticate, getUser)
-router.patch('/user', 
+router.patch('/user',
     body('handle')
         .notEmpty()
         .withMessage('El nombre de usuario es requerido'),
@@ -45,7 +47,11 @@ router.patch('/user',
         .notEmpty()
         .withMessage('La descripción es requerida'),
     handleInputErrors,
-    authenticate, 
-    updateProfile)
+    authenticate,
+    updateProfile
+)
+
+router.post('/user/image', authenticate, uploadImage)
+
 
 export default router;
