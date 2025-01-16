@@ -1,6 +1,6 @@
 import { DevTreeLink } from "../types"
 import { Switch } from '@headlessui/react'
-import { classNames } from "../utils/idex"
+import { classNames } from "../utils"
 
 type DevTreeInputProps = {
     item: DevTreeLink
