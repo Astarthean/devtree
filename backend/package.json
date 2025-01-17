@@ -4,7 +4,6 @@
   "description": "Primer proyecto con express y typescript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts",
     "dev:api": "nodemon src/index.ts --api",
     "build": "tsc",
